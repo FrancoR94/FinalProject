@@ -1,4 +1,5 @@
 ﻿using System;
+using SFML.System;
 
 namespace Final_Project
 {
@@ -6,7 +7,15 @@ namespace Final_Project
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Game game = new Game();
+            //FrameRate.InitFrameRateSystem();
+            do
+            {
+                game.UpdateGame();
+                game.DrawGame();
+               // FrameRate.OnFrameEnd();
+            } while (game.UpdateWindow());
+            Console.ReadKey();
         }
     }
 }
