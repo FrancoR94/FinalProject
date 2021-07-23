@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using SFML.Graphics;
 using SFML.System;
@@ -13,25 +14,36 @@ namespace Final_Project
         private Texture texture;
         private Sprite sprite;
         private Vector2f position;
-        private Player player;
+        
         private float speed;
         private List<Bullet> bullets;
         public Player()
         {
-            texture = new Texture("sprites/Soldier-Guy-PNG/_Mode-Gun/01-Idle/E_E_Gun__Idle_000.png");
+            texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player1.png");
             sprite = new Sprite(texture);
-            sprite.Scale = new Vector2f(0.5f, 0.5f);
-            position = new Vector2f(0.0f, 0.0f);
+            sprite.Scale = new Vector2f(3.0f, 3.0f);
+            position = new Vector2f(0.0f, 700.0f);
             sprite.Position = position;
             speed = 200.0f;
             bullets = new List<Bullet>();
+            
         }
         public void Update()
         {
             Movement();
-            Shot();
-            DestroyBullet();
+            Attack();
+            /*Shot();
+            DestroyBullet();*/
         }
+
+        private void Attack()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
+            {
+                    
+            }
+        }
+
         public void Draw(RenderWindow window)
         {
             window.Draw(sprite);
@@ -60,7 +72,7 @@ namespace Final_Project
             }
             sprite.Position = position; // vuelvo a setear la posicion del sprite a la posicion que estoy modificando
         }
-        private void Shot()
+        /*private void Shot()
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
             {
@@ -86,6 +98,6 @@ namespace Final_Project
                 bullets[i].Dispose();
                 bullets.RemoveAt(i);
             }
-        }
+        }*/
     }
 }
