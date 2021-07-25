@@ -9,7 +9,6 @@ namespace Final_Project
 {
     class Game
     {
-        public static readonly uint FRAMERATE_LIMIT = 60;
         private static Vector2f windowSize;
         private RenderWindow window;
         private GamePlay gamePlay;

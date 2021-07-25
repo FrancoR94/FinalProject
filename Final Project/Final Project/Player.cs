@@ -9,26 +9,19 @@ using SFML.Window;
 
 namespace Final_Project
 {
-    class Player
+    class Player : GameObjectBase
     {
-        private Texture texture;
-        private Sprite sprite;
-        private Vector2f position;
-        
         private float speed;
         private List<Bullet> bullets;
-        public Player()
+        public Player() : base("sprites" + Path.DirectorySeparatorChar + "player1.png", new Vector2f(0.0f, 700.0f))
         {
-            texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player1.png");
-            sprite = new Sprite(texture);
+            
             sprite.Scale = new Vector2f(3.0f, 3.0f);
-            position = new Vector2f(0.0f, 700.0f);
-            sprite.Position = position;
             speed = 200.0f;
             bullets = new List<Bullet>();
             
         }
-        public void Update()
+        public override void Update()
         {
             Movement();
             Attack();
@@ -44,7 +37,7 @@ namespace Final_Project
             }
         }
 
-        public void Draw(RenderWindow window)
+        public override void Draw(RenderWindow window)
         {
             window.Draw(sprite);
             for (int i = 0; i < bullets.Count; i++)
@@ -56,19 +49,19 @@ namespace Final_Project
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.D))
             {
-                position.X += speed * (1.0f / (float)Game.FRAMERATE_LIMIT); // lo que yo quiera que haya movimiento * la inersa del framerate actual. ESTO ES PARA QUE EL JUEGO CORRA A LA MISMA VELOCIDAD SIN IMPORTAR QUE UNA PC TENGA MAYOR FPS POR SEGUNDO, SE NIVELA
+                position.X += speed * FrameRate.GetDeltaTime(); // lo que yo quiera que haya movimiento * la inersa del framerate actual. ESTO ES PARA QUE EL JUEGO CORRA A LA MISMA VELOCIDAD SIN IMPORTAR QUE UNA PC TENGA MAYOR FPS POR SEGUNDO, SE NIVELA
             }
             if (Keyboard.IsKeyPressed(Keyboard.Key.A))
             {
-                position.X -= speed * (1.0f / (float)Game.FRAMERATE_LIMIT);
+                position.X -= speed * FrameRate.GetDeltaTime();
             }
             if (Keyboard.IsKeyPressed(Keyboard.Key.S))
             {
-                position.Y += speed * (1.0f / (float)Game.FRAMERATE_LIMIT);
+                position.Y += speed * FrameRate.GetDeltaTime();
             }
             if (Keyboard.IsKeyPressed(Keyboard.Key.W)) //La coordenada Y crece HACIA ABAJO, O SEA INVERTIDO
             {
-                position.Y -= speed * (1.0f / (float)Game.FRAMERATE_LIMIT);
+                position.Y -= speed * FrameRate.GetDeltaTime();
             }
             sprite.Position = position; // vuelvo a setear la posicion del sprite a la posicion que estoy modificando
         }

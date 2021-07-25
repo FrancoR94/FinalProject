@@ -1,5 +1,6 @@
 ﻿using System;
 using SFML.System;
+using SFML.Audio;
 
 namespace Final_Project
 {
@@ -8,14 +9,15 @@ namespace Final_Project
         static void Main(string[] args)
         {
             Game game = new Game();
-            //FrameRate.InitFrameRateSystem();
+            MusicManager.GetInstance().Play();
+            FrameRate.InitFrameRateSystem();
             do
             {
                 game.UpdateGame();
                 game.DrawGame();
-               // FrameRate.OnFrameEnd();
+                FrameRate.OnFrameEnd();
             } while (game.UpdateWindow());
-            Console.ReadKey();
+            
         }
     }
 }

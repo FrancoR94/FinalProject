@@ -7,19 +7,16 @@ using System.IO;
 
 namespace Final_Project
 {
-    class Enemy
+    class Enemy : GameObjectBase
     {
-        private Texture texture;
-        private Sprite sprite;
-        private Vector2f position;
+       
         private float speed;
 
-        public Enemy()
+        public Enemy() : base ("sprites" + Path.DirectorySeparatorChar + "zombie1.png", new Vector2f(1500.0f, 700.0f))
         {
-            texture = new Texture("sprites" + Path.DirectorySeparatorChar + "zombie1.png");
-            sprite = new Sprite(texture);
+            
             sprite.Scale = new Vector2f(3.0f, 3.0f);
-            position = new Vector2f(1500.0f, 700.0f);
+            
             sprite.Position = position;
             speed = 100.0f;
         }
@@ -29,7 +26,7 @@ namespace Final_Project
         }
         private void Movement()
         {
-            position.X -= speed * (1.0f / (float)Game.FRAMERATE_LIMIT);
+            position.X -= speed * FrameRate.GetDeltaTime();
             sprite.Position = position;
         }
         public void Draw(RenderWindow window)

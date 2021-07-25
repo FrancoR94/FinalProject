@@ -24,7 +24,7 @@ namespace Final_Project
         }
         public void Update()
         {
-            position.X -= speed * (2.0f / (float)Game.FRAMERATE_LIMIT);
+            position.X -= speed * FrameRate.GetDeltaTime();
             sprite.Position = position;     
         }
         public void Draw(RenderWindow window)
