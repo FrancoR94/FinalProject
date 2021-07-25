@@ -7,32 +7,63 @@ using System.IO;
 
 namespace Final_Project
 {
-    class Enemy : GameObjectBase
+    class Enemy : GameObjectBase, ICollisionable
     {
-       
+
         private float speed;
 
-        public Enemy() : base ("sprites" + Path.DirectorySeparatorChar + "zombie1.png", new Vector2f(1500.0f, 700.0f))
+        public Enemy() : base("sprites" + Path.DirectorySeparatorChar + "zombie1.png", new Vector2f(1500.0f, 700.0f))
         {
-            
             sprite.Scale = new Vector2f(3.0f, 3.0f);
-            
             sprite.Position = position;
             speed = 100.0f;
+            CollisionManager.GetInstance().AddToCollisionManager(this);
         }
-        public void Update()
+        public override void Update()
         {
             Movement();
+            base.Update();
         }
         private void Movement()
         {
             position.X -= speed * FrameRate.GetDeltaTime();
             sprite.Position = position;
         }
-        public void Draw(RenderWindow window)
+        public override void Draw(RenderWindow window)
         {
-            window.Draw(sprite);
+            base.Draw(window);
+        }
+        public override void DisposeNow()
+        {
+            CollisionManager.GetInstance().RemoveFromCollisionManager(this);
+            base.DisposeNow();
+        }
+        public FloatRect GetBounds()
+        {
+            return sprite.GetGlobalBounds();
+        }
+        public void OnCollisionEnter(ICollisionable other)
+        {
+            if (other is Player)
+            {
+                Console.WriteLine("Rock enter");
+            }
         }
 
+        public void OnCollisionExit(ICollisionable other)
+        {
+            if (other is Player)
+            {
+                Console.WriteLine("Rock exit");
+            }
+        }
+
+        public void OnCollisionStay(ICollisionable other)
+        {
+            if (other is Bullet)
+            {
+                LateDispose();
+            }
+        }
     }
 }

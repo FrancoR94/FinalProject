@@ -51,7 +51,6 @@ namespace Final_Project
         }
         public void Draw(RenderWindow window)
         {
-
             for (int i = 0; i < sprites.Count; i++)
             {
                 window.Draw(sprites[i]);

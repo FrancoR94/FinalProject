@@ -5,26 +5,28 @@ using System.Text;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
-    
+
 
 namespace Final_Project
 {
-    class Player : GameObjectBase
+    class Player : GameObjectBase, ICollisionable
     {
         private float speed;
         private List<Bullet> bullets;
+        private static int life;
         public Player() : base("sprites" + Path.DirectorySeparatorChar + "player1.png", new Vector2f(0.0f, 700.0f))
         {
-            
             sprite.Scale = new Vector2f(3.0f, 3.0f);
             speed = 200.0f;
             bullets = new List<Bullet>();
-            
+            CollisionManager.GetInstance().AddToCollisionManager(this);
+            life = 5;
         }
         public override void Update()
         {
             Movement();
             Attack();
+            base.Update();
             /*Shot();
             DestroyBullet();*/
         }
@@ -33,13 +35,13 @@ namespace Final_Project
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
             {
-                    
+
             }
         }
 
         public override void Draw(RenderWindow window)
         {
-            window.Draw(sprite);
+            base.Draw(window);
             for (int i = 0; i < bullets.Count; i++)
             {
                 bullets[i].Draw(window);
@@ -64,6 +66,38 @@ namespace Final_Project
                 position.Y -= speed * FrameRate.GetDeltaTime();
             }
             sprite.Position = position; // vuelvo a setear la posicion del sprite a la posicion que estoy modificando
+        }
+        public FloatRect GetBounds()
+        {
+            return sprite.GetGlobalBounds();
+        }
+        public override void DisposeNow()
+        {
+            CollisionManager.GetInstance().RemoveFromCollisionManager(this);
+            base.DisposeNow();
+        }
+        public void OnCollisionStay(ICollisionable other)
+        {
+        }
+
+        public void OnCollisionEnter(ICollisionable other)
+        {
+            if (other is Enemy)
+            {
+                Console.WriteLine("Player enter");
+            }
+        }
+
+        public void OnCollisionExit(ICollisionable other)
+        {
+            if (other is Enemy)
+            {
+                Console.WriteLine("Player exit");
+            }
+        }
+        public static int GetLife()
+        {
+            return life;
         }
         /*private void Shot()
         {

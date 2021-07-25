@@ -13,23 +13,38 @@ namespace Final_Project
         private Player player;
         private Enemy enemy;
         private Background background;
+        private LifeCount lifeCount;
         public GamePlay()
         {
             background = new Background();
             player = new Player();
             enemy = new Enemy();
+            lifeCount = new LifeCount();
         }
         public void Update()
         {
+            if (player != null)
+            {
             player.Update();
+            }
+            if (enemy != null)
+            {
             enemy.Update();
+            }
+            lifeCount.UpdateText();
         }
         public void Draw(RenderWindow window)
         {
-            
             background.Draw(window);
+            if (player != null)
+            {
             player.Draw(window);
+            }
+            if (enemy != null)
+            {
             enemy.Draw(window);
+            }
+            lifeCount.DrawText(window);
         }
     }
 }

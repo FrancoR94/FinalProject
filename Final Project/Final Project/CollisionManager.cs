@@ -16,54 +16,54 @@ namespace Final_Project
             return instance;
         }
 
-        private List<ICollisionable> colisionables;
+        private List<ICollisionable> collisionables;
 
         private List<KeyValuePair<ICollisionable, ICollisionable>> collisionRegister;
 
         private CollisionManager()
         {
-            colisionables = new List<ICollisionable>();
+            collisionables = new List<ICollisionable>();
             collisionRegister = new List<KeyValuePair<ICollisionable, ICollisionable>>();
         }
 
-        public void AddToCollisionManager(ICollisionable colisionable)
+        public void AddToCollisionManager(ICollisionable collisionable)
         {
-            colisionables.Add(colisionable);
+            collisionables.Add(collisionable);
         }
 
-        public void RemoveFromCollisionManager(ICollisionable colisionable)
+        public void RemoveFromCollisionManager(ICollisionable collisionable)
         {
-            if (colisionables.Contains(colisionable))
+            if (collisionables.Contains(collisionable))
             {
-                colisionables.Remove(colisionable);
+                collisionables.Remove(collisionable);
             }
         }
 
         public void CheckCollisions()
         {
-            for (int i = 0; i < colisionables.Count; i++)// 1[0] - 2[1] - 3[2]
+            for (int i = 0; i < collisionables.Count; i++)// 1[0] - 2[1] - 3[2]
             {
-                for (int j = 0; j < colisionables.Count; j++)// 1[0] - 2[1] - 3[2]
+                for (int j = 0; j < collisionables.Count; j++)// 1[0] - 2[1] - 3[2]
                 {
                     if (i != j)
                     {
-                        KeyValuePair<ICollisionable, ICollisionable> register = new KeyValuePair<ICollisionable, ICollisionable>(colisionables[i], colisionables[j]);
+                        KeyValuePair<ICollisionable, ICollisionable> register = new KeyValuePair<ICollisionable, ICollisionable>(collisionables[i], collisionables[j]);
 
-                        if (colisionables[i].GetBounds().Intersects(colisionables[j].GetBounds()))
+                        if (collisionables[i].GetBounds().Intersects(collisionables[j].GetBounds()))
                         {
                             if (!collisionRegister.Contains(register))
                             {
                                 collisionRegister.Add(register);
-                                colisionables[i].OnCollisionEnter(colisionables[j]);
+                                collisionables[i].OnCollisionEnter(collisionables[j]);
                             }
-                            colisionables[i].OnCollisionStay(colisionables[j]);
+                            collisionables[i].OnCollisionStay(collisionables[j]);
                         }
                         else
                         {
                             if (collisionRegister.Contains(register))
                             {
                                 collisionRegister.Remove(register);
-                                colisionables[i].OnCollisionExit(colisionables[j]);
+                                collisionables[i].OnCollisionExit(collisionables[j]);
                             }
                         }
                     }
