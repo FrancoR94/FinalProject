@@ -23,7 +23,7 @@ namespace Final_Project
             enemy = new Enemy();
             lifeCount = new LifeCount();
             invisibleWallSup = new InvisibleWall(new Vector2f(0f, 450f), new Vector2f (1920f, 200f));
-            invisibleWallInf = new InvisibleWall(new Vector2f(0f, 1100f), new Vector2f(1920f, 200f));
+            invisibleWallInf = new InvisibleWall(new Vector2f(0f, 1075f), new Vector2f(1920f, 200f));
         }
         public void Update()
         {

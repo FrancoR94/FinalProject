@@ -35,7 +35,11 @@ namespace Final_Project
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
             {
-                
+                Console.WriteLine("spacebar");
+                texture = new Texture( "sprites" + Path.DirectorySeparatorChar + "player3.png");
+                sprite = new Sprite(texture);
+                sprite.Scale = new Vector2f(3.0f, 3.0f);
+                speed = 200.0f;
             }
         }
 

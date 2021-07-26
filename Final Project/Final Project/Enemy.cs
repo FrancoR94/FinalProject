@@ -26,8 +26,8 @@ namespace Final_Project
         }
         private void Movement()
         {
-            //position.X -= speed * FrameRate.GetDeltaTime();
-            //sprite.Position = position;
+            position.X -= speed * FrameRate.GetDeltaTime();
+            sprite.Position = position;
         }
         public override void Draw(RenderWindow window)
         {
@@ -44,25 +44,20 @@ namespace Final_Project
         }
         public void OnCollisionEnter(ICollisionable other)
         {
-            if (other is Player)
-            {
-                Console.WriteLine("Rock enter");
-            }
+            
         }
 
         public void OnCollisionExit(ICollisionable other)
         {
-            if (other is Player)
-            {
-                Console.WriteLine("Rock exit");
-            }
+            
         }
 
         public void OnCollisionStay(ICollisionable other)
         {
-            if (other is Bullet)
+            if (other is Player)
             {
-                LateDispose();
+                position.X += speed * FrameRate.GetDeltaTime();
+                sprite.Position = position;
             }
         }
     }

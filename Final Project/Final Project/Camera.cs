@@ -11,14 +11,14 @@ namespace Final_Project
     {
         private RenderWindow window;
         private View view;
-        private Vector2f currentPosition;
+        private Vector2f position;
 
 
         public Camera(RenderWindow window)
         {
             this.window = window;
             view = window.GetView();
-            currentPosition = view.Center;
+            position = view.Center;
         }
 
 
@@ -26,24 +26,24 @@ namespace Final_Project
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
             {
-                currentPosition.X -= 100 * FrameRate.GetDeltaTime();
+                position.X -= 100 * FrameRate.GetDeltaTime();
             }
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
             {
-                currentPosition.X += 100 * FrameRate.GetDeltaTime();
+                position.X += 100 * FrameRate.GetDeltaTime();
             }
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
             {
-                currentPosition.Y -= 100 * FrameRate.GetDeltaTime();
+                position.Y -= 100 * FrameRate.GetDeltaTime();
             }
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
             {
-                currentPosition.Y += 100 * FrameRate.GetDeltaTime();
+                position.Y += 100 * FrameRate.GetDeltaTime();
             }
-            view.Center = currentPosition;
+            view.Center = position;
             window.SetView(view);
         }
     }

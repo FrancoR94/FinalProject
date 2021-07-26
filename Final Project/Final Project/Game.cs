@@ -12,6 +12,7 @@ namespace Final_Project
         private static Vector2f windowSize;
         private RenderWindow window;
         private GamePlay gamePlay;
+        private Camera camera;
         public Game()
         {
             VideoMode videoMode = new VideoMode();
@@ -20,6 +21,7 @@ namespace Final_Project
             window = new RenderWindow(videoMode, "My Game");
             window.Closed += CloseWindow;
             window.SetFramerateLimit(60);
+            camera = new Camera(window);
             gamePlay = new GamePlay();
         }
         private void CloseWindow(object sender, EventArgs e)
@@ -35,6 +37,7 @@ namespace Final_Project
         public void UpdateGame()
         {
             gamePlay.Update();
+            camera.UpdateCamera();
             windowSize = window.GetView().Size;
         }
         public void DrawGame()
