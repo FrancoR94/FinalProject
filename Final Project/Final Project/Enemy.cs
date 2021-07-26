@@ -12,7 +12,7 @@ namespace Final_Project
 
         private float speed;
 
-        public Enemy() : base("sprites" + Path.DirectorySeparatorChar + "zombie1.png", new Vector2f(1500.0f, 700.0f))
+        public Enemy() : base("sprites" + Path.DirectorySeparatorChar + "zombie4.png", new Vector2f(1500.0f, 700.0f))
         {
             sprite.Scale = new Vector2f(3.0f, 3.0f);
             sprite.Position = position;
@@ -26,8 +26,8 @@ namespace Final_Project
         }
         private void Movement()
         {
-            position.X -= speed * FrameRate.GetDeltaTime();
-            sprite.Position = position;
+            //position.X -= speed * FrameRate.GetDeltaTime();
+            //sprite.Position = position;
         }
         public override void Draw(RenderWindow window)
         {

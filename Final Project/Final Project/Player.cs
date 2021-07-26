@@ -14,7 +14,7 @@ namespace Final_Project
         private float speed;
         private List<Bullet> bullets;
         private static int life;
-        public Player() : base("sprites" + Path.DirectorySeparatorChar + "player1.png", new Vector2f(0.0f, 700.0f))
+        public Player() : base("sprites" + Path.DirectorySeparatorChar + "player4.png", new Vector2f(0.0f, 700.0f))
         {
             sprite.Scale = new Vector2f(3.0f, 3.0f);
             speed = 200.0f;
@@ -35,7 +35,7 @@ namespace Final_Project
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
             {
-
+                
             }
         }
 
@@ -78,14 +78,31 @@ namespace Final_Project
         }
         public void OnCollisionStay(ICollisionable other)
         {
+            if (other is Enemy || other is InvisibleWall)
+            {
+                if (Keyboard.IsKeyPressed(Keyboard.Key.D))
+                {
+                    position.X -= speed * FrameRate.GetDeltaTime(); // lo que yo quiera que haya movimiento * la inersa del framerate actual. ESTO ES PARA QUE EL JUEGO CORRA A LA MISMA VELOCIDAD SIN IMPORTAR QUE UNA PC TENGA MAYOR FPS POR SEGUNDO, SE NIVELA
+                }
+                if (Keyboard.IsKeyPressed(Keyboard.Key.A))
+                {
+                    position.X += speed * FrameRate.GetDeltaTime();
+                }
+                if (Keyboard.IsKeyPressed(Keyboard.Key.S))
+                {
+                    position.Y -= speed * FrameRate.GetDeltaTime();
+                }
+                if (Keyboard.IsKeyPressed(Keyboard.Key.W)) //La coordenada Y crece HACIA ABAJO, O SEA INVERTIDO
+                {
+                    position.Y += speed * FrameRate.GetDeltaTime();
+                }
+                sprite.Position = position;
+            }
         }
 
         public void OnCollisionEnter(ICollisionable other)
         {
-            if (other is Enemy)
-            {
-                Console.WriteLine("Player enter");
-            }
+            
         }
 
         public void OnCollisionExit(ICollisionable other)
