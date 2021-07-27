@@ -33,7 +33,7 @@ namespace Final_Project
 
         private void Attack()
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Space)) //No deja de imprimirse una vez que presiono, por esto agregue la textura a cada movimiento
             {
                 Console.WriteLine("spacebar");
                 texture = new Texture( "sprites" + Path.DirectorySeparatorChar + "player3.png");
@@ -55,18 +55,34 @@ namespace Final_Project
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.D))
             {
+                texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player4.png");
+                sprite = new Sprite(texture);
+                //sprite.Scale = new Vector2f(3.0f, 3.0f);
+                speed = 200.0f;
                 position.X += speed * FrameRate.GetDeltaTime(); // lo que yo quiera que haya movimiento * la inersa del framerate actual. ESTO ES PARA QUE EL JUEGO CORRA A LA MISMA VELOCIDAD SIN IMPORTAR QUE UNA PC TENGA MAYOR FPS POR SEGUNDO, SE NIVELA
             }
             if (Keyboard.IsKeyPressed(Keyboard.Key.A))
             {
+                texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player5.png");
+                sprite = new Sprite(texture);
+                //sprite.Scale = new Vector2f(3.0f, 3.0f);
+                speed = 200.0f;
                 position.X -= speed * FrameRate.GetDeltaTime();
             }
             if (Keyboard.IsKeyPressed(Keyboard.Key.S))
             {
+                texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player4.png");
+                sprite = new Sprite(texture);
+                sprite.Scale = new Vector2f(3.0f, 3.0f);
+                speed = 200.0f;
                 position.Y += speed * FrameRate.GetDeltaTime();
             }
             if (Keyboard.IsKeyPressed(Keyboard.Key.W)) //La coordenada Y crece HACIA ABAJO, O SEA INVERTIDO
             {
+                texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player4.png");
+                sprite = new Sprite(texture);
+                sprite.Scale = new Vector2f(3.0f, 3.0f);
+                speed = 200.0f;
                 position.Y -= speed * FrameRate.GetDeltaTime();
             }
             sprite.Position = position; // vuelvo a setear la posicion del sprite a la posicion que estoy modificando

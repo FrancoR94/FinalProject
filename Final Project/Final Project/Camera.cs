@@ -24,25 +24,17 @@ namespace Final_Project
 
         public void UpdateCamera()
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
-            {
-                position.X -= 100 * FrameRate.GetDeltaTime();
-            }
-
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
+            if (Keyboard.IsKeyPressed(Keyboard.Key.D))
             {
                 position.X += 100 * FrameRate.GetDeltaTime();
             }
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
+            if (Keyboard.IsKeyPressed(Keyboard.Key.A))
             {
-                position.Y -= 100 * FrameRate.GetDeltaTime();
+                position.X -= 200 * FrameRate.GetDeltaTime();
             }
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
-            {
-                position.Y += 100 * FrameRate.GetDeltaTime();
-            }
+            
             view.Center = position;
             window.SetView(view);
         }
