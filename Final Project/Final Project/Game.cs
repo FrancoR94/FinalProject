@@ -13,6 +13,7 @@ namespace Final_Project
         private RenderWindow window;
         private GamePlay gamePlay;
         private Camera camera;
+        private Menu menu;
         public Game()
         {
             VideoMode videoMode = new VideoMode();
@@ -22,7 +23,9 @@ namespace Final_Project
             window.Closed += CloseWindow;
             window.SetFramerateLimit(60);
             camera = new Camera(window);
+            menu = new Menu();
             gamePlay = new GamePlay();
+            MouseUtils.SetWindow(window);
         }
         private void CloseWindow(object sender, EventArgs e)
         {
@@ -42,6 +45,7 @@ namespace Final_Project
         }
         public void DrawGame()
         {
+            menu.Draw(window);
             gamePlay.Draw(window);
             window.Display();
         }

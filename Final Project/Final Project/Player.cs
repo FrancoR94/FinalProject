@@ -57,7 +57,7 @@ namespace Final_Project
             {
                 texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player4.png");
                 sprite = new Sprite(texture);
-                //sprite.Scale = new Vector2f(3.0f, 3.0f);
+                sprite.Scale = new Vector2f(3.0f, 3.0f);
                 speed = 200.0f;
                 position.X += speed * FrameRate.GetDeltaTime(); // lo que yo quiera que haya movimiento * la inersa del framerate actual. ESTO ES PARA QUE EL JUEGO CORRA A LA MISMA VELOCIDAD SIN IMPORTAR QUE UNA PC TENGA MAYOR FPS POR SEGUNDO, SE NIVELA
             }
@@ -65,7 +65,7 @@ namespace Final_Project
             {
                 texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player5.png");
                 sprite = new Sprite(texture);
-                //sprite.Scale = new Vector2f(3.0f, 3.0f);
+                sprite.Scale = new Vector2f(3.0f, 3.0f);
                 speed = 200.0f;
                 position.X -= speed * FrameRate.GetDeltaTime();
             }
