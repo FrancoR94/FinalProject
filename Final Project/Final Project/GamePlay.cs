@@ -18,13 +18,16 @@ namespace Final_Project
         private InvisibleWall invisibleWallInf;
         private List<Enemy> enemies;
         private Random enemySpawn;
+        private Clock clock;
+        private float frequency;
         public GamePlay(int maxEnemies)
         {
+            clock = new Clock();
             background = new Background();
             player = new Player();
             enemy = new Enemy(1);
             lifeCount = new LifeCount();
-            invisibleWallSup = new InvisibleWall(new Vector2f(0f, 450f), new Vector2f (1920f, 200f));
+            invisibleWallSup = new InvisibleWall(new Vector2f(0f, 450f), new Vector2f(1920f, 200f));
             invisibleWallInf = new InvisibleWall(new Vector2f(0f, 1075f), new Vector2f(1920f, 200f));
             enemies = new List<Enemy>();
             enemySpawn = new Random();
@@ -33,16 +36,17 @@ namespace Final_Project
             {
                 enemies.Add(new Enemy(1));
             }
+            frequency = 1.0f;
         }
         public void Update()
         {
             if (player != null)
             {
-            player.Update();
+                player.Update();
             }
             if (enemy != null)
             {
-            enemy.Update();
+                enemy.Update();
             }
             lifeCount.UpdateText();
         }
@@ -51,15 +55,16 @@ namespace Final_Project
             background.Draw(window);
             if (player != null)
             {
-            player.Draw(window);
+                player.Draw(window);
             }
-            if (enemy != null)
+            if (enemy != null || clock.ElapsedTime.AsSeconds() > frequency)
             {
                 for (int i = 0; i < enemies.Count; i++)
                 {
                     enemy.Draw(window);
                 }
-               // enemy.Draw(window);
+
+                clock.Restart();
             }
             lifeCount.DrawText(window);
         }

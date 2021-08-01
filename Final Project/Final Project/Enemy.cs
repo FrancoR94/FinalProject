@@ -26,7 +26,7 @@ namespace Final_Project
             SoundBuffer soundBuffer = new SoundBuffer("Audio" + Path.DirectorySeparatorChar + "zombieappears.ogg");
             CollisionManager.GetInstance().AddToCollisionManager(this);
             sound = new Sound(soundBuffer);
-            clock = new Clock();
+            //clock = new Clock();
         }
         public override void Update()
         {
@@ -40,12 +40,12 @@ namespace Final_Project
         }
         public override void Draw(RenderWindow window)
         {
-            currentTime = clock.ElapsedTime;
-            time = currentTime.AsSeconds() + FrameRate.GetDeltaTime();
-            if (time > 3)
-            {
+            //currentTime = clock.ElapsedTime;
+            //time = currentTime.AsSeconds() + FrameRate.GetDeltaTime();
+            //if (time > 3)
+            //{
             base.Draw(window);
-            }
+            //}
         }
         public override void DisposeNow()
         {
