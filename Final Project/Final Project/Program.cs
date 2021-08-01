@@ -15,6 +15,7 @@ namespace Final_Project
             {
                 game.UpdateGame();
                 CollisionManager.GetInstance().CheckCollisions();
+                game.CheckGarbash();
                 game.DrawGame();
                 FrameRate.OnFrameEnd();
             } while (game.UpdateWindow());

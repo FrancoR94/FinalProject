@@ -24,7 +24,7 @@ namespace Final_Project
             window.SetFramerateLimit(60);
             camera = new Camera(window);
             menu = new Menu();
-            gamePlay = new GamePlay();
+            gamePlay = new GamePlay(10);
             MouseUtils.SetWindow(window);
         }
         private void CloseWindow(object sender, EventArgs e)
@@ -60,6 +60,10 @@ namespace Final_Project
         {
             return windowSize;
         }
-        
+        public void CheckGarbash()
+        {
+            gamePlay.CheckGarbash();
+        }
+
     }
 }

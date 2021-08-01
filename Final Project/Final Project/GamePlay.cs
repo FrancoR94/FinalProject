@@ -14,20 +14,25 @@ namespace Final_Project
         private Enemy enemy;
         private Background background;
         private LifeCount lifeCount;
-        //private Menu menu;
         private InvisibleWall invisibleWallSup;
         private InvisibleWall invisibleWallInf;
         private List<Enemy> enemies;
-        public GamePlay()
+        private Random enemySpawn;
+        public GamePlay(int maxEnemies)
         {
-            //menu = new Menu();
             background = new Background();
             player = new Player();
-            enemy = new Enemy();
+            enemy = new Enemy(1);
             lifeCount = new LifeCount();
             invisibleWallSup = new InvisibleWall(new Vector2f(0f, 450f), new Vector2f (1920f, 200f));
             invisibleWallInf = new InvisibleWall(new Vector2f(0f, 1075f), new Vector2f(1920f, 200f));
             enemies = new List<Enemy>();
+            enemySpawn = new Random();
+            int enemiesInGame = enemySpawn.Next(5, maxEnemies);
+            for (int i = 0; i < enemiesInGame; i++)
+            {
+                enemies.Add(new Enemy(1));
+            }
         }
         public void Update()
         {
@@ -43,7 +48,6 @@ namespace Final_Project
         }
         public void Draw(RenderWindow window)
         {
-            //menu.Draw(window);
             background.Draw(window);
             if (player != null)
             {
@@ -51,9 +55,33 @@ namespace Final_Project
             }
             if (enemy != null)
             {
-            enemy.Draw(window);
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    enemy.Draw(window);
+                }
+               // enemy.Draw(window);
             }
             lifeCount.DrawText(window);
+        }
+        public void CheckGarbash()
+        {
+            if (player != null)
+            {
+                player.CheckGarbash();
+                if (player.toDelete)
+                {
+                    player = null;
+                }
+            }
+
+            if (enemy != null)
+            {
+                enemy.CheckGarbash();
+                if (enemy.toDelete)
+                {
+                    enemy = null;
+                }
+            }
         }
     }
 }

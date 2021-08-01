@@ -4,20 +4,29 @@ using System.Collections.Generic;
 using System.Text;
 using SFML.System;
 using System.IO;
+using SFML.Audio;
 
 namespace Final_Project
 {
     class Enemy : GameObjectBase, ICollisionable
     {
-
+        private Sound sound;
         private float speed;
+        private Clock clock;
+        private Time currentTime;
+        private float time;
+        private int life;
 
-        public Enemy() : base("sprites" + Path.DirectorySeparatorChar + "zombie4.png", new Vector2f(1500.0f, 700.0f))
+        public Enemy(int life) : base("sprites" + Path.DirectorySeparatorChar + "zombie4.png", new Vector2f(1500.0f, 700.0f))
         {
+            this.life = life;
             sprite.Scale = new Vector2f(3.0f, 3.0f);
             sprite.Position = position;
             speed = 100.0f;
+            SoundBuffer soundBuffer = new SoundBuffer("Audio" + Path.DirectorySeparatorChar + "zombieappears.ogg");
             CollisionManager.GetInstance().AddToCollisionManager(this);
+            sound = new Sound(soundBuffer);
+            clock = new Clock();
         }
         public override void Update()
         {
@@ -31,7 +40,12 @@ namespace Final_Project
         }
         public override void Draw(RenderWindow window)
         {
+            currentTime = clock.ElapsedTime;
+            time = currentTime.AsSeconds() + FrameRate.GetDeltaTime();
+            if (time > 3)
+            {
             base.Draw(window);
+            }
         }
         public override void DisposeNow()
         {
@@ -44,7 +58,7 @@ namespace Final_Project
         }
         public void OnCollisionEnter(ICollisionable other)
         {
-            
+            sound.Play();
         }
 
         public void OnCollisionExit(ICollisionable other)
