@@ -14,11 +14,13 @@ namespace Final_Project
         private Enemy enemy;
         private Background background;
         private LifeCount lifeCount;
+        //private Menu menu;
         private InvisibleWall invisibleWallSup;
         private InvisibleWall invisibleWallInf;
         private List<Enemy> enemies;
         public GamePlay()
         {
+            //menu = new Menu();
             background = new Background();
             player = new Player();
             enemy = new Enemy();
@@ -41,6 +43,7 @@ namespace Final_Project
         }
         public void Draw(RenderWindow window)
         {
+            //menu.Draw(window);
             background.Draw(window);
             if (player != null)
             {
