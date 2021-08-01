@@ -26,7 +26,7 @@ namespace Final_Project
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.D))
             {
-                position.X += 100 * FrameRate.GetDeltaTime();
+                position.X += 200 * FrameRate.GetDeltaTime();
             }
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.A))

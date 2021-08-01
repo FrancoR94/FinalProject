@@ -85,7 +85,7 @@ namespace Final_Project
                 speed = 200.0f;
                 position.Y -= speed * FrameRate.GetDeltaTime();
             }
-            sprite.Position = position; // vuelvo a setear la posicion del sprite a la posicion que estoy modificando
+            //sprite.Position = position; // vuelvo a setear la posicion del sprite a la posicion que estoy modificando
         }
         public FloatRect GetBounds()
         {

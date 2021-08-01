@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using SFML.Graphics;
 using SFML.System;
+using SFML.Window;
 
 namespace Final_Project
 {
@@ -12,25 +13,27 @@ namespace Final_Project
         private Texture texture;
         private Sprite sprite;
         private Vector2f position;
+        private bool endMenu;
         public Menu()
         {
-            texture = new Texture("sprites" + Path.DirectorySeparatorChar + "mainMenu.png");
+            texture = new Texture("sprites" + Path.DirectorySeparatorChar + "menu.png");
             sprite = new Sprite(texture);
             position = new Vector2f(0.0f, 0.0f);
         }
         public void Draw(RenderWindow window)
         {
             window.Draw(sprite);
-            Console.WriteLine("se dibujo el menu");
         }
         public void Update()
         {
-            /*if (MouseUtils.ClickOn(GetBounds(), Mouse.Button.Left))
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Enter))
             {
-                Console.WriteLine("Mouse left");
+                endMenu = true;
             }
-
-            base.Update();*/
+        }
+        public bool GetEndMenu()
+        {
+            return endMenu;
         }
     }
 }

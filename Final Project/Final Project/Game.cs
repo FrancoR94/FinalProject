@@ -39,19 +39,27 @@ namespace Final_Project
         }
         public void UpdateGame()
         {
+            menu.Update();
             gamePlay.Update();
             camera.UpdateCamera();
             windowSize = window.GetView().Size;
         }
         public void DrawGame()
         {
-            menu.Draw(window);
-            gamePlay.Draw(window);
+            if (menu.GetEndMenu() == false)
+            {
+                menu.Draw(window);
+            }
+            else
+            {
+                gamePlay.Draw(window);
+            }
             window.Display();
         }
         public static Vector2f GetWindowSize()
         {
             return windowSize;
         }
+        
     }
 }

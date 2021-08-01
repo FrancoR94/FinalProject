@@ -14,18 +14,18 @@ namespace Final_Project
         private Enemy enemy;
         private Background background;
         private LifeCount lifeCount;
-        //private Menu menu;
         private InvisibleWall invisibleWallSup;
         private InvisibleWall invisibleWallInf;
+        private List<Enemy> enemies;
         public GamePlay()
         {
-            //menu = new Menu();
             background = new Background();
             player = new Player();
             enemy = new Enemy();
             lifeCount = new LifeCount();
             invisibleWallSup = new InvisibleWall(new Vector2f(0f, 450f), new Vector2f (1920f, 200f));
             invisibleWallInf = new InvisibleWall(new Vector2f(0f, 1075f), new Vector2f(1920f, 200f));
+            enemies = new List<Enemy>();
         }
         public void Update()
         {
@@ -41,7 +41,6 @@ namespace Final_Project
         }
         public void Draw(RenderWindow window)
         {
-            //menu.Draw(window);
             background.Draw(window);
             if (player != null)
             {
