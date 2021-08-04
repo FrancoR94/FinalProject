@@ -14,9 +14,9 @@ namespace Final_Project
         private float speed;
         private List<Bullet> bullets;
         private static int life;
-        public Player() : base("sprites" + Path.DirectorySeparatorChar + "player4.png", new Vector2f(0.0f, 700.0f))
+        public Player() : base("sprites" + Path.DirectorySeparatorChar + "Soldier-Guy-PNG" + Path.DirectorySeparatorChar + "_Mode-Gun" + Path.DirectorySeparatorChar + "01-Idle" + Path.DirectorySeparatorChar + "player1.png", new Vector2f(0.0f, 800.0f))
         {
-            sprite.Scale = new Vector2f(3.0f, 3.0f);
+            sprite.Scale = new Vector2f(0.4f, 0.4f);
             speed = 200.0f;
             bullets = new List<Bullet>();
             CollisionManager.GetInstance().AddToCollisionManager(this);
@@ -55,34 +55,34 @@ namespace Final_Project
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.D))
             {
-                texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player4.png");
+               /* texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player4.png");
                 sprite = new Sprite(texture);
                 sprite.Scale = new Vector2f(3.0f, 3.0f);
-                speed = 200.0f;
+                speed = 200.0f;*/
                 position.X += speed * FrameRate.GetDeltaTime(); // lo que yo quiera que haya movimiento * la inersa del framerate actual. ESTO ES PARA QUE EL JUEGO CORRA A LA MISMA VELOCIDAD SIN IMPORTAR QUE UNA PC TENGA MAYOR FPS POR SEGUNDO, SE NIVELA
             }
             if (Keyboard.IsKeyPressed(Keyboard.Key.A))
             {
-                texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player5.png");
+                /*texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player5.png");
                 sprite = new Sprite(texture);
                 sprite.Scale = new Vector2f(3.0f, 3.0f);
-                speed = 200.0f;
+                speed = 200.0f;*/
                 position.X -= speed * FrameRate.GetDeltaTime();
             }
             if (Keyboard.IsKeyPressed(Keyboard.Key.S))
             {
-                texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player4.png");
+                /*texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player4.png");
                 sprite = new Sprite(texture);
                 sprite.Scale = new Vector2f(3.0f, 3.0f);
-                speed = 200.0f;
+                speed = 200.0f;*/
                 position.Y += speed * FrameRate.GetDeltaTime();
             }
             if (Keyboard.IsKeyPressed(Keyboard.Key.W)) //La coordenada Y crece HACIA ABAJO, O SEA INVERTIDO
             {
-                texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player4.png");
+                /*texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player4.png");
                 sprite = new Sprite(texture);
                 sprite.Scale = new Vector2f(3.0f, 3.0f);
-                speed = 200.0f;
+                speed = 200.0f;*/
                 position.Y -= speed * FrameRate.GetDeltaTime();
             }
             //sprite.Position = position; // vuelvo a setear la posicion del sprite a la posicion que estoy modificando

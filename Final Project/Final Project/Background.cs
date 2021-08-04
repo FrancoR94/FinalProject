@@ -22,8 +22,9 @@ namespace Final_Project
         private readonly string background6 = "sprites" + Path.DirectorySeparatorChar + "PNG" + Path.DirectorySeparatorChar + "Postapocalypce2" + Path.DirectorySeparatorChar + "Bright" + Path.DirectorySeparatorChar + "road.png";
         List<Texture> textures = new List<Texture>();
         List<Sprite> sprites = new List<Sprite>();
-        public Background()
+        public Background(Vector2f position)
         {
+            this.position = position;
             AddTexture();
             for (int i = 0; i < textures.Count; i++)
             {
@@ -31,7 +32,7 @@ namespace Final_Project
                 sprites.Add(sprite);
             }
             sprite.Scale = new Vector2f(1.0f, 1.0f);
-            position = new Vector2f(0.0f, 0.0f);
+            //position = new Vector2f(0.0f, 0.0f);
             sprite.Position = position;
         }
         private void AddTexture()
@@ -55,6 +56,10 @@ namespace Final_Project
             {
                 window.Draw(sprites[i]);
             }
+        }
+        public void Update()
+        {
+
         }
     }
 }

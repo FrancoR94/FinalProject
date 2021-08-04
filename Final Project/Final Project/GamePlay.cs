@@ -13,6 +13,7 @@ namespace Final_Project
         private Player player;
         private Enemy enemy;
         private Background background;
+        private Background background2;
         private LifeCount lifeCount;
         private InvisibleWall invisibleWallSup;
         private InvisibleWall invisibleWallInf;
@@ -23,7 +24,8 @@ namespace Final_Project
         public GamePlay(int maxEnemies)
         {
             clock = new Clock();
-            background = new Background();
+            background = new Background(new Vector2f(0.0f, 0.0f));
+            background2 = new Background(new Vector2f(1920.0f, 0.0f));
             player = new Player();
             enemy = new Enemy(1);
             lifeCount = new LifeCount();
@@ -44,27 +46,26 @@ namespace Final_Project
             {
                 player.Update();
             }
-            if (enemy != null)
+            for (int i = 0; i < enemies.Count; i++)
             {
-                enemy.Update();
+                if (clock.ElapsedTime.AsSeconds() > frequency)
+                {
+                    enemies[i].Update();
+                }
             }
             lifeCount.UpdateText();
         }
         public void Draw(RenderWindow window)
         {
+            background2.Draw(window);
             background.Draw(window);
             if (player != null)
             {
                 player.Draw(window);
             }
-            if (enemy != null || clock.ElapsedTime.AsSeconds() > frequency)
+            for (int i = 0; i < enemies.Count; i++)
             {
-                for (int i = 0; i < enemies.Count; i++)
-                {
-                    enemy.Draw(window);
-                }
-
-                clock.Restart();
+                enemies[i].Draw(window);
             }
             lifeCount.DrawText(window);
         }
