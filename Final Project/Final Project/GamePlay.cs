@@ -27,11 +27,11 @@ namespace Final_Project
             background = new Background(new Vector2f(0.0f, 0.0f));
             background2 = new Background(new Vector2f(1920.0f, 0.0f));
             player = new Player();
-            enemy = new Enemy(1);
             lifeCount = new LifeCount();
             invisibleWallSup = new InvisibleWall(new Vector2f(0f, 450f), new Vector2f(1920f, 200f));
             invisibleWallInf = new InvisibleWall(new Vector2f(0f, 1075f), new Vector2f(1920f, 200f));
-            enemies = new List<Enemy>();
+            enemy = new Enemy(1);
+            enemies = new List<Enemy>(); //LOS ENEMIGOS DEBERIAN DE CREARSE EN EL UPDATE
             enemySpawn = new Random();
             int enemiesInGame = enemySpawn.Next(5, maxEnemies);
             for (int i = 0; i < enemiesInGame; i++)
@@ -57,8 +57,9 @@ namespace Final_Project
         }
         public void Draw(RenderWindow window)
         {
-            background2.Draw(window);
             background.Draw(window);
+            background2.Draw(window);
+            
             if (player != null)
             {
                 player.Draw(window);

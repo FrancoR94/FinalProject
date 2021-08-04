@@ -11,8 +11,7 @@ namespace Final_Project
 {
     class Background
     {
-        
-        private Sprite sprite;
+
         private Vector2f position;
         private readonly string background1 = "sprites" + Path.DirectorySeparatorChar + "PNG" + Path.DirectorySeparatorChar + "Postapocalypce2" + Path.DirectorySeparatorChar + "Bright" + Path.DirectorySeparatorChar + "sky.png";
         private readonly string background2 = "sprites" + Path.DirectorySeparatorChar + "PNG" + Path.DirectorySeparatorChar + "Postapocalypce2" + Path.DirectorySeparatorChar + "Bright" + Path.DirectorySeparatorChar + "back.png";
@@ -28,12 +27,13 @@ namespace Final_Project
             AddTexture();
             for (int i = 0; i < textures.Count; i++)
             {
+                Sprite sprite;
                 sprite = new Sprite(textures[i]);
+                sprite.Scale = new Vector2f(1.0f, 1.0f);
+                sprite.Position = position;
                 sprites.Add(sprite);
             }
-            sprite.Scale = new Vector2f(1.0f, 1.0f);
             //position = new Vector2f(0.0f, 0.0f);
-            sprite.Position = position;
         }
         private void AddTexture()
         {
