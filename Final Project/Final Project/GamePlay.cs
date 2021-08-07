@@ -17,6 +17,8 @@ namespace Final_Project
         private LifeCount lifeCount;
         private InvisibleWall invisibleWallSup;
         private InvisibleWall invisibleWallInf;
+        private InvisibleWall invisibleWallRight;
+        private InvisibleWall invisibleWallLeft;
         private List<Enemy> enemies;
         private Random enemySpawn;
         private Clock clock;
@@ -25,11 +27,13 @@ namespace Final_Project
         {
             clock = new Clock();
             background = new Background(new Vector2f(0.0f, 0.0f));
-            background2 = new Background(new Vector2f(1920.0f, 0.0f));
+            //background2 = new Background(new Vector2f(1920.0f, 0.0f));
             player = new Player();
             lifeCount = new LifeCount();
-            invisibleWallSup = new InvisibleWall(new Vector2f(0f, 450f), new Vector2f(1920f, 200f));
+            invisibleWallSup = new InvisibleWall(new Vector2f(0f, 570f), new Vector2f(1920f, 200f));
             invisibleWallInf = new InvisibleWall(new Vector2f(0f, 1075f), new Vector2f(1920f, 200f));
+            invisibleWallRight = new InvisibleWall(new Vector2f(0f, 0f), new Vector2f(1f, 1080f));
+            invisibleWallLeft = new InvisibleWall(new Vector2f(1920f, 0f), new Vector2f(1f, 1080f));
             enemy = new Enemy(1);
             enemies = new List<Enemy>(); //LOS ENEMIGOS DEBERIAN DE CREARSE EN EL UPDATE
             enemySpawn = new Random();
@@ -58,7 +62,7 @@ namespace Final_Project
         public void Draw(RenderWindow window)
         {
             background.Draw(window);
-            background2.Draw(window);
+            //background2.Draw(window);
             
             if (player != null)
             {

@@ -11,37 +11,86 @@ namespace Final_Project
 {
     class Player : GameObjectBase, ICollisionable
     {
+        enum Status { Idle, Moving, Shot };
         private float speed;
         private List<Bullet> bullets;
         private static int life;
-        public Player() : base("sprites" + Path.DirectorySeparatorChar + "Soldier-Guy-PNG" + Path.DirectorySeparatorChar + "_Mode-Gun" + Path.DirectorySeparatorChar + "01-Idle" + Path.DirectorySeparatorChar + "player1.png", new Vector2f(0.0f, 800.0f))
+        private IntRect frameRect;
+        private int sheetColumns = 10;
+        private int sheetRows = 6;
+        private Clock frameTimer;
+        private int currentFrame = 0;
+        private float animTime = 5f;
+        private List<List<Vector2i>> animations;
+        private Status status;
+        public Player() : base("sprites" + Path.DirectorySeparatorChar + "player.png", new Vector2f(0.0f, 800.0f))
         {
-            sprite.Scale = new Vector2f(0.4f, 0.4f);
+            frameRect = new IntRect();
+            frameRect.Width = (int)texture.Size.X / sheetColumns;
+            frameRect.Height = (int)texture.Size.Y / sheetRows;
+            sprite.TextureRect = frameRect;
+            sprite.Scale = new Vector2f(1.5f, 1.5f);
             speed = 200.0f;
             bullets = new List<Bullet>();
             CollisionManager.GetInstance().AddToCollisionManager(this);
             life = 5;
+            frameTimer = new Clock();
+            animations = new List<List<Vector2i>>();
+            animations.Add(new List<Vector2i>());
+            animations.Add(new List<Vector2i>());
+            animations.Add(new List<Vector2i>());
+            animations[(int)Status.Idle].Add(new Vector2i(0, 0));
+            animations[(int)Status.Idle].Add(new Vector2i(1, 0));
+            animations[(int)Status.Idle].Add(new Vector2i(2, 0));
+            animations[(int)Status.Idle].Add(new Vector2i(3, 0));
+            animations[(int)Status.Idle].Add(new Vector2i(4, 0));
+            animations[(int)Status.Idle].Add(new Vector2i(5, 0));
+            animations[(int)Status.Idle].Add(new Vector2i(6, 0));
+            animations[(int)Status.Idle].Add(new Vector2i(7, 0));
+            animations[(int)Status.Idle].Add(new Vector2i(8, 0));
+            animations[(int)Status.Idle].Add(new Vector2i(9, 0));
+            animations[(int)Status.Moving].Add(new Vector2i(0, 1));
+            animations[(int)Status.Moving].Add(new Vector2i(1, 1));
+            animations[(int)Status.Moving].Add(new Vector2i(2, 1));
+            animations[(int)Status.Moving].Add(new Vector2i(3, 1));
+            animations[(int)Status.Moving].Add(new Vector2i(4, 1));
+            animations[(int)Status.Moving].Add(new Vector2i(5, 1));
+            animations[(int)Status.Moving].Add(new Vector2i(6, 1));
+            animations[(int)Status.Moving].Add(new Vector2i(7, 1));
+            animations[(int)Status.Moving].Add(new Vector2i(8, 1));
+            animations[(int)Status.Moving].Add(new Vector2i(9, 1));
+            animations[(int)Status.Shot].Add(new Vector2i(0, 2));
+            animations[(int)Status.Shot].Add(new Vector2i(1, 2));
+            animations[(int)Status.Shot].Add(new Vector2i(2, 2));
+            animations[(int)Status.Shot].Add(new Vector2i(3, 2));
+            animations[(int)Status.Shot].Add(new Vector2i(4, 2));
+            animations[(int)Status.Shot].Add(new Vector2i(5, 2));
+            animations[(int)Status.Shot].Add(new Vector2i(6, 2));
+            animations[(int)Status.Shot].Add(new Vector2i(7, 2));
+            animations[(int)Status.Shot].Add(new Vector2i(8, 2));
+            animations[(int)Status.Shot].Add(new Vector2i(9, 2));
         }
         public override void Update()
         {
             Movement();
-            Attack();
+            updateAnimation();
+            Shot();
+            //Attack();
+            DestroyBullet();
             base.Update();
-            /*Shot();
-            DestroyBullet();*/
         }
 
-        private void Attack()
+       /* private void Attack()
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.Space)) //No deja de imprimirse una vez que presiono, por esto agregue la textura a cada movimiento
             {
                 Console.WriteLine("spacebar");
-                texture = new Texture( "sprites" + Path.DirectorySeparatorChar + "player3.png");
+                texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player3.png");
                 sprite = new Sprite(texture);
                 sprite.Scale = new Vector2f(3.0f, 3.0f);
                 speed = 200.0f;
             }
-        }
+        }*/
 
         public override void Draw(RenderWindow window)
         {
@@ -53,38 +102,52 @@ namespace Final_Project
         }
         private void Movement()
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.D))
-            {
-               /* texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player4.png");
-                sprite = new Sprite(texture);
-                sprite.Scale = new Vector2f(3.0f, 3.0f);
-                speed = 200.0f;*/
-                position.X += speed * FrameRate.GetDeltaTime(); // lo que yo quiera que haya movimiento * la inersa del framerate actual. ESTO ES PARA QUE EL JUEGO CORRA A LA MISMA VELOCIDAD SIN IMPORTAR QUE UNA PC TENGA MAYOR FPS POR SEGUNDO, SE NIVELA
-            }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.A))
-            {
-                /*texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player5.png");
-                sprite = new Sprite(texture);
-                sprite.Scale = new Vector2f(3.0f, 3.0f);
-                speed = 200.0f;*/
-                position.X -= speed * FrameRate.GetDeltaTime();
-            }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.S))
-            {
-                /*texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player4.png");
-                sprite = new Sprite(texture);
-                sprite.Scale = new Vector2f(3.0f, 3.0f);
-                speed = 200.0f;*/
-                position.Y += speed * FrameRate.GetDeltaTime();
-            }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.W)) //La coordenada Y crece HACIA ABAJO, O SEA INVERTIDO
-            {
-                /*texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player4.png");
-                sprite = new Sprite(texture);
-                sprite.Scale = new Vector2f(3.0f, 3.0f);
-                speed = 200.0f;*/
-                position.Y -= speed * FrameRate.GetDeltaTime();
-            }
+            //if (status != Status.Shot)
+           // {
+                if (Keyboard.IsKeyPressed(Keyboard.Key.D))
+                {
+                    /* texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player4.png");
+                     sprite = new Sprite(texture);
+                     sprite.Scale = new Vector2f(3.0f, 3.0f);
+                     speed = 200.0f;*/
+                    position.X += speed * FrameRate.GetDeltaTime(); // lo que yo quiera que haya movimiento * la inersa del framerate actual. ESTO ES PARA QUE EL JUEGO CORRA A LA MISMA VELOCIDAD SIN IMPORTAR QUE UNA PC TENGA MAYOR FPS POR SEGUNDO, SE NIVELA
+                    status = Status.Moving;
+                }
+                if (Keyboard.IsKeyPressed(Keyboard.Key.A))
+                {
+                    /*texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player5.png");
+                    sprite = new Sprite(texture);
+                    sprite.Scale = new Vector2f(3.0f, 3.0f);
+                    speed = 200.0f;*/
+                    position.X -= speed * FrameRate.GetDeltaTime();
+                    status = Status.Moving;
+                }
+                if (Keyboard.IsKeyPressed(Keyboard.Key.S))
+                {
+                    /*texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player4.png");
+                    sprite = new Sprite(texture);
+                    sprite.Scale = new Vector2f(3.0f, 3.0f);
+                    speed = 200.0f;*/
+                    position.Y += speed * FrameRate.GetDeltaTime();
+                    status = Status.Moving;
+                }
+                if (Keyboard.IsKeyPressed(Keyboard.Key.W)) //La coordenada Y crece HACIA ABAJO, O SEA INVERTIDO
+                {
+                    /*texture = new Texture("sprites" + Path.DirectorySeparatorChar + "player4.png");
+                    sprite = new Sprite(texture);
+                    sprite.Scale = new Vector2f(3.0f, 3.0f);
+                    speed = 200.0f;*/
+                    position.Y -= speed * FrameRate.GetDeltaTime();
+                    status = Status.Moving;
+                }
+                bool isMovingHorizontaly = !Keyboard.IsKeyPressed(Keyboard.Key.A) && !Keyboard.IsKeyPressed(Keyboard.Key.D);
+                bool isMovingVerticaly = !Keyboard.IsKeyPressed(Keyboard.Key.W) && !Keyboard.IsKeyPressed(Keyboard.Key.S);
+                if (isMovingHorizontaly && isMovingHorizontaly)
+                {
+                    status = Status.Idle;
+                }
+            //}
+
             //sprite.Position = position; // vuelvo a setear la posicion del sprite a la posicion que estoy modificando
         }
         public FloatRect GetBounds()
@@ -122,7 +185,7 @@ namespace Final_Project
 
         public void OnCollisionEnter(ICollisionable other)
         {
-            
+
         }
 
         public void OnCollisionExit(ICollisionable other)
@@ -136,14 +199,16 @@ namespace Final_Project
         {
             return life;
         }
-        /*private void Shot()
+        private void Shot()
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
             {
+                Console.WriteLine("dispara");
+                status = Status.Shot;
                 Vector2f spawnPosition = position;
                 spawnPosition.X *= (texture.Size.X * sprite.Scale.X) / 2.0f; //Al ancho del sprite lo divido en dos para que salga por la mitad 
                 spawnPosition.Y *= (texture.Size.Y * sprite.Scale.X) / 2.0f;
-                bullets.Add(new Bullet(spawnPosition)); //El tipo de dato Leaf se guarda en la lista    
+                bullets.Add(new Bullet(spawnPosition)); //El tipo de dato Leaf se guarda en la lista  
             }
         }
         private void DestroyBullet()
@@ -162,6 +227,55 @@ namespace Final_Project
                 bullets[i].Dispose();
                 bullets.RemoveAt(i);
             }
-        }*/
+        }
+        private void updateAnimation()
+        {
+            switch (status)
+            {
+                case Status.Moving:
+                    if (frameTimer.ElapsedTime.AsSeconds() > animTime / animations[(int)Status.Moving].Count - 1)
+                    {
+                        currentFrame++;
+                        if (currentFrame == animations[(int)Status.Moving].Count - 1)
+                        {
+                            currentFrame = 0;
+                        }
+                        frameTimer.Restart();
+                    }
+                    frameRect.Left = animations[(int)Status.Moving][currentFrame].X * frameRect.Width;
+                    frameRect.Top = animations[(int)Status.Moving][currentFrame].Y * frameRect.Height;
+                    break;
+                case Status.Idle:
+                    if (frameTimer.ElapsedTime.AsSeconds() > animations[(int)Status.Idle].Count - 1)
+                    {
+                        currentFrame++;
+                        if (currentFrame == animations[(int)Status.Idle].Count - 1)
+                        {
+                            currentFrame = 0;
+                        }
+                        frameTimer.Restart();
+                    }
+                    frameRect.Left = animations[(int)Status.Idle][currentFrame].X * frameRect.Width;
+                    frameRect.Top = animations[(int)Status.Idle][currentFrame].Y * frameRect.Height;
+                    break;
+                case Status.Shot:
+                    //animTime = 0.5f;
+                    if (frameTimer.ElapsedTime.AsSeconds() > animations[(int)Status.Shot].Count - 1)
+                    {
+                        currentFrame++;
+                        if (currentFrame == animations[(int)Status.Shot].Count - 1)
+                        {
+                            currentFrame = 0;
+                            status = Status.Idle;
+                        }
+                        frameTimer.Restart();
+                    }
+                    frameRect.Left = animations[(int)Status.Shot][currentFrame].X * frameRect.Width;
+                    frameRect.Top = animations[(int)Status.Shot][currentFrame].Y * frameRect.Height;
+                    break;
+
+            }
+            sprite.TextureRect = frameRect;
+        }
     }
 }
